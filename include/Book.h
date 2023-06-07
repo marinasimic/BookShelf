@@ -8,7 +8,7 @@ class Book
         std::string m_title{};
         std::string m_author{};
         std::string m_isbn{};
-        bool m_isBorrowed{false};
+        std::string m_genre{};
     
     public:
         Book() = default;
@@ -22,6 +22,6 @@ class Book
         auto GetISBN() const -> std::string;
         auto SetISBN(const std::string& isbn) -> void;
 
-        auto IsBorrowed() const -> bool;
-        auto SetBorrowed(bool isBorrowed) -> void;
+        auto GetGenre() const -> std::string;
+        auto SetGenre(const std::string& genre) -> void;
 };

@@ -29,13 +29,3 @@ auto Book::SetISBN(const std::string& isbn) -> void
 {
     m_isbn = isbn;
 }
-
-auto Book::IsBorrowed() const -> bool
-{
-    return m_isBorrowed;
-}
-
-auto Book::SetBorrowed(bool isBorrowed) -> void
-{
-    m_isBorrowed = isBorrowed;
-}
