@@ -2,12 +2,12 @@
 
 #include <algorithm>
 
-auto BookShelf::AddBook(const BookShelfEntry& book) -> void
+auto BookShelf::AddBook(const BookShelfEntry &book) -> void
 {
     m_books.push_back(book);
 }
 
-auto BookShelf::RemoveBook(const BookShelfEntry& book) -> bool
+auto BookShelf::RemoveBook(const BookShelfEntry &book) -> bool
 {
     if (!BookExists(book))
     {
@@ -15,21 +15,21 @@ auto BookShelf::RemoveBook(const BookShelfEntry& book) -> bool
     }
 
     m_books.remove(book);
-    
+
     return true;
 }
 
-auto BookShelf::BorrowBook(const BookShelfEntry& book, const std::string borrower) -> bool
+auto BookShelf::BorrowBook(const BookShelfEntry &book, const std::string borrower) -> bool
 {
     return ChangeBorrowedStatus(book, true, borrower);
 }
 
-auto BookShelf::ReturnBook(const BookShelfEntry& book) -> bool
+auto BookShelf::ReturnBook(const BookShelfEntry &book) -> bool
 {
     return ChangeBorrowedStatus(book, false);
 }
 
-auto BookShelf::BookExists(const BookShelfEntry& book) const -> bool
+auto BookShelf::BookExists(const BookShelfEntry &book) const -> bool
 {
     return std::find(m_books.begin(), m_books.end(), book) != std::end(m_books);
 }
@@ -41,7 +41,8 @@ auto BookShelf::GetAllBooks() const -> std::vector<BookShelfEntry>
 
 auto BookShelf::GetAvailableBooks() const -> std::vector<BookShelfEntry>
 {
-    auto isBookAvailable = [](const BookShelfEntry& book) {
+    auto isBookAvailable = [](const BookShelfEntry &book)
+    {
         return !book.IsBorrowed();
     };
 
@@ -53,7 +54,8 @@ auto BookShelf::GetAvailableBooks() const -> std::vector<BookShelfEntry>
 
 auto BookShelf::GetBorrowedBooks() const -> std::vector<BookShelfEntry>
 {
-    auto isBookBorrowed = [](const BookShelfEntry& book) {
+    auto isBookBorrowed = [](const BookShelfEntry &book)
+    {
         return book.IsBorrowed();
     };
 
@@ -65,7 +67,8 @@ auto BookShelf::GetBorrowedBooks() const -> std::vector<BookShelfEntry>
 
 auto BookShelf::GetBooksByAuthor(const std::string author) const -> std::vector<BookShelfEntry>
 {
-    auto isBookByAuthor = [&author](const BookShelfEntry& book) {
+    auto isBookByAuthor = [&author](const BookShelfEntry &book)
+    {
         return book.GetBook().GetAuthor() == author;
     };
 
@@ -77,7 +80,8 @@ auto BookShelf::GetBooksByAuthor(const std::string author) const -> std::vector<
 
 auto BookShelf::GetBooksByGenre(const std::string genre) const -> std::vector<BookShelfEntry>
 {
-    auto isBookOfGenre = [&genre](const BookShelfEntry& book) {
+    auto isBookOfGenre = [&genre](const BookShelfEntry &book)
+    {
         return book.GetBook().GetGenre() == genre;
     };
 
@@ -87,7 +91,7 @@ auto BookShelf::GetBooksByGenre(const std::string genre) const -> std::vector<Bo
     return books;
 }
 
-auto BookShelf::ChangeBorrowedStatus(const BookShelfEntry& book, bool status, std::string borrower) -> bool
+auto BookShelf::ChangeBorrowedStatus(const BookShelfEntry &book, bool status, std::string borrower) -> bool
 {
     if (!BookExists(book))
     {
@@ -95,14 +99,14 @@ auto BookShelf::ChangeBorrowedStatus(const BookShelfEntry& book, bool status, st
     }
 
     bool changed = false;
-    
+
     // use algorithm for this
-    for (auto& b: m_books)
+    for (auto &b : m_books)
     {
-        if(b == book)
+        if (b == book)
         {
             b.SetBorrowed(status);
-            
+
             if (status)
             {
                 b.SetBorrower(borrower);

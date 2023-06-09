@@ -3,7 +3,7 @@
 
 #include "BookShelf.h"
 
-auto AddBook(BookShelf& bookshelf) -> bool
+auto AddBook(BookShelf &bookshelf) -> bool
 {
     std::string title, author, isbn, genre;
 
@@ -22,11 +22,11 @@ auto AddBook(BookShelf& bookshelf) -> bool
     return true;
 }
 
-auto SeeAllBooks(BookShelf& bookshelf) -> bool
+auto SeeAllBooks(BookShelf &bookshelf) -> bool
 {
     auto books = bookshelf.GetAllBooks();
 
-    for (auto book: books)
+    for (const auto &book : books)
     {
         std::cout << book << std::endl;
     }
@@ -39,7 +39,7 @@ auto SeeAllBooks(BookShelf& bookshelf) -> bool
     return true;
 }
 
-auto RemoveBook(BookShelf& bookshelf) -> bool
+auto RemoveBook(BookShelf &bookshelf) -> bool
 {
     auto books = bookshelf.GetAllBooks();
     for (auto count = 0; count < books.size(); count++)
@@ -62,7 +62,7 @@ auto RemoveBook(BookShelf& bookshelf) -> bool
     return bookshelf.RemoveBook(books[bookNr]);
 }
 
-auto BorrowBook(BookShelf& bookshelf) -> bool
+auto BorrowBook(BookShelf &bookshelf) -> bool
 {
     auto books = bookshelf.GetAvailableBooks();
     for (auto count = 0; count < books.size(); count++)
@@ -81,7 +81,7 @@ auto BorrowBook(BookShelf& bookshelf) -> bool
         std::cout << "Invalid book number!" << std::endl;
         return false;
     }
-    
+
     std::string borrower;
 
     std::cout << "Enter the name of the borrower: ";
@@ -95,12 +95,11 @@ int main()
     uint16_t option;
     BookShelf bookshelf;
 
-    std::map<uint16_t, bool (*)(BookShelf&)> actions = {{1, AddBook},
-                                                        {2, SeeAllBooks},
-                                                        {3, RemoveBook},
-                                                        {4, BorrowBook}};
+    std::map<uint16_t, bool (*)(BookShelf &)> actions = {{1, AddBook},
+                                                         {2, SeeAllBooks},
+                                                         {3, RemoveBook},
+                                                         {4, BorrowBook}};
 
-                                                    
     std::cout << "Hello!" << std::endl;
     std::cout << "Welcome to the BookShelf!" << std::endl;
 
@@ -119,22 +118,22 @@ int main()
 
         if (option > 5)
         {
-            std::cout << "Invalid option! Try again" << std::endl << std::endl;
+            std::cout << "Invalid option! Try again" << std::endl
+                      << std::endl;
             continue;
         }
 
-        if(option <= 0)
+        if (option <= 0)
         {
             break;
         }
 
-        if( !actions[option](bookshelf))
+        if (!actions[option](bookshelf))
         {
             std::cout << "Action failed!" << std::endl;
         }
-    } while(option != 0);
+    } while (option != 0);
 
-    
     std::cout << "Goodbye!" << std::endl;
 
     return 0;
