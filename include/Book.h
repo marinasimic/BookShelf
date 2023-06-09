@@ -11,7 +11,7 @@ class Book
         std::string m_genre{};
     
     public:
-        Book() = default;
+        auto operator==(const Book& book) const -> bool;
 
         auto GetTitle() const -> std::string;
         auto SetTitle(const std::string& title) -> void;

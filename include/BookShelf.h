@@ -1,30 +1,27 @@
 #pragma once
 
+#include <list>
 #include <vector>
 
-#include "Book.h"
+#include "BookShelfEntry.h"
 
 class BookShelf
 {
     private:
-        /**
-         * \brief Vector of pairs - book and the name of the person borrowed it
-         * \note Empty string means book is available
-         * \todo Think of a better way to store books
-        */
-        std::vector<std::pair<Book, std::string>> m_books{};
+        std::list<BookShelfEntry> m_books{};
+
+        auto ChangeBorrowedStatus(const BookShelfEntry& book, bool status) -> bool;
 
     public:
-        BookShelf() = default;
+        auto AddBook(const BookShelfEntry& book) -> void;
+        auto RemoveBook(const BookShelfEntry& book) -> bool;
+        auto BorrowBook(const BookShelfEntry& book) -> bool;
+        auto ReturnBook(const BookShelfEntry& book) -> bool;
+        auto BookExists(const BookShelfEntry& book) const -> bool;
 
-        auto AddBook(const Book& book) -> bool;
-        auto RemoveBook(const Book& book) -> bool;
-        auto BorrowBook(const Book& book) -> bool;
-        auto ReturnBook(const Book& book) -> bool;
-        auto BookExists(const Book& book) -> bool;
-
-        auto GetAllBooks() const -> std::vector<Book>;
-        auto GetAllAvailableBooks() const  -> std::vector<Book>;
-        auto GetBooksByAuthor(const std::string author) const -> std::vector<Book>;
-        auto GetBooksByGenre(const std::string genre) const -> std::vector<Book>;
+        auto GetAllBooks() const -> std::vector<BookShelfEntry>;
+        auto GetAvailableBooks() const  -> std::vector<BookShelfEntry>;
+        auto GetBorrowedBooks() const -> std::vector<BookShelfEntry>;
+        auto GetBooksByAuthor(const std::string author) const -> std::vector<BookShelfEntry>;
+        auto GetBooksByGenre(const std::string genre) const -> std::vector<BookShelfEntry>;
 };

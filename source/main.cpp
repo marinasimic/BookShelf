@@ -26,9 +26,6 @@ int main()
             std::cout << "Invalid option! Try again" << std::endl << std::endl;
             continue;
         }
-
-
-
     } while(option != 0);
 
     
