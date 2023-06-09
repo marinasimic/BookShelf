@@ -10,12 +10,12 @@ class BookShelf
     private:
         std::list<BookShelfEntry> m_books{};
 
-        auto ChangeBorrowedStatus(const BookShelfEntry& book, bool status) -> bool;
+        auto ChangeBorrowedStatus(const BookShelfEntry& book, bool status, std::string borrower = "") -> bool;
 
     public:
         auto AddBook(const BookShelfEntry& book) -> void;
         auto RemoveBook(const BookShelfEntry& book) -> bool;
-        auto BorrowBook(const BookShelfEntry& book) -> bool;
+        auto BorrowBook(const BookShelfEntry& book, const std::string borrower) -> bool;
         auto ReturnBook(const BookShelfEntry& book) -> bool;
         auto BookExists(const BookShelfEntry& book) const -> bool;
 

@@ -19,9 +19,9 @@ auto BookShelf::RemoveBook(const BookShelfEntry& book) -> bool
     return true;
 }
 
-auto BookShelf::BorrowBook(const BookShelfEntry& book) -> bool
+auto BookShelf::BorrowBook(const BookShelfEntry& book, const std::string borrower) -> bool
 {
-    return ChangeBorrowedStatus(book, true);
+    return ChangeBorrowedStatus(book, true, borrower);
 }
 
 auto BookShelf::ReturnBook(const BookShelfEntry& book) -> bool
@@ -87,20 +87,31 @@ auto BookShelf::GetBooksByGenre(const std::string genre) const -> std::vector<Bo
     return books;
 }
 
-auto BookShelf::ChangeBorrowedStatus(const BookShelfEntry& book, bool status) -> bool
+auto BookShelf::ChangeBorrowedStatus(const BookShelfEntry& book, bool status, std::string borrower) -> bool
 {
     if (!BookExists(book))
     {
         return false;
     }
+
+    bool changed = false;
     
-    for (auto b: m_books)
+    // use algorithm for this
+    for (auto& b: m_books)
     {
         if(b == book)
         {
             b.SetBorrowed(status);
+            
+            if (status)
+            {
+                b.SetBorrower(borrower);
+            }
+
+            changed = true;
+            break;
         }
     }
 
-    return true;
+    return changed;
 }

@@ -1,11 +1,29 @@
 #include "Book.h"
 
+Book::Book(const std::string& title, const std::string& author, const std::string& isbn, const std::string& genre)
+{
+    m_title = title;
+    m_author = author;
+    m_isbn = isbn;
+    m_genre = genre;
+}
+
 auto Book::operator==(const Book& book) const -> bool
 {
     return m_title == book.GetTitle() &&
            m_author == book.GetAuthor() &&
            m_isbn == book.GetISBN() &&
            m_genre == book.GetGenre();
+}
+
+auto operator<<(std::ostream& os, const Book& book) -> std::ostream&
+{
+    os << "Title: " << book.GetTitle() << std::endl;
+    os << "Author: " << book.GetAuthor() << std::endl;
+    os << "ISBN: " << book.GetISBN() << std::endl;
+    os << "Genre: " << book.GetGenre() << std::endl;
+
+    return os;
 }
 
 auto Book::GetTitle() const -> std::string

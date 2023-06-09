@@ -14,6 +14,7 @@ public:
     BookShelfEntry(const Book& bse);
 
     auto operator==(const BookShelfEntry& book) const -> bool;
+    friend auto operator<<(std::ostream& os, const BookShelfEntry& book) -> std::ostream&;
 
     auto GetBook() const -> Book;
 

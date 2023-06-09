@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <ostream>
 
 class Book
 {
@@ -11,7 +12,10 @@ class Book
         std::string m_genre{};
     
     public:
+        Book() = default;
+        Book(const std::string& title, const std::string& author, const std::string& isbn, const std::string& genre);
         auto operator==(const Book& book) const -> bool;
+        friend auto operator<<(std::ostream& os, const Book& book) -> std::ostream&;
 
         auto GetTitle() const -> std::string;
         auto SetTitle(const std::string& title) -> void;

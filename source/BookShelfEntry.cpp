@@ -11,6 +11,19 @@ auto BookShelfEntry::operator==(const BookShelfEntry& book) const -> bool
            m_borrower == book.GetBorrower();
 }
 
+auto operator<<(std::ostream& os, const BookShelfEntry& book) -> std::ostream&
+{
+    os << book.GetBook();
+    os << "Borrowed: " << (book.IsBorrowed() ? "Yes" : "No") << std::endl;
+    
+    if( book.IsBorrowed())
+    {
+        os << "Borrowed by: " << book.GetBorrower() << std::endl;
+    }
+
+    return os;
+}
+
 auto BookShelfEntry::GetBook() const -> Book
 {
     return m_book;
