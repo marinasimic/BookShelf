@@ -39,6 +39,23 @@ auto SeeAllBooks(BookShelf &bookshelf) -> bool
     return true;
 }
 
+auto SeeBorrowedBooks(BookShelf &bookshelf) -> bool
+{
+    auto books = bookshelf.GetBorrowedBooks();
+
+    for (const auto &book : books)
+    {
+        std::cout << book << std::endl;
+    }
+
+    if (books.empty())
+    {
+        std::cout << "You have no borrowed books!" << std::endl;
+    }
+
+    return true;
+}
+
 auto RemoveBook(BookShelf &bookshelf) -> bool
 {
     auto books = bookshelf.GetAllBooks();
@@ -97,8 +114,9 @@ int main()
 
     std::map<uint16_t, bool (*)(BookShelf &)> actions = {{1, AddBook},
                                                          {2, SeeAllBooks},
-                                                         {3, RemoveBook},
-                                                         {4, BorrowBook}};
+                                                         {3, SeeBorrowedBooks},
+                                                         {4, RemoveBook},
+                                                         {5, BorrowBook}};
 
     std::cout << "Hello!" << std::endl;
     std::cout << "Welcome to the BookShelf!" << std::endl;
@@ -109,9 +127,9 @@ int main()
         std::cout << "Enter the number of the command:" << std::endl;
         std::cout << "\t1) Add new book to the bookshelf" << std::endl;
         std::cout << "\t2) See all books on the bookshelf" << std::endl;
-        std::cout << "\t3) Remove book from the bookshelf" << std::endl;
-        std::cout << "\t4) Borrow the book from the bookshelf" << std::endl;
-        std::cout << "\t5) Edit the book from the bookshelf" << std::endl;
+        std::cout << "\t3) See all borrowed books from the bookshelf" << std::endl;
+        std::cout << "\t4) Remove book from the bookshelf" << std::endl;
+        std::cout << "\t5) Borrow the book from the bookshelf" << std::endl;
         std::cout << "\t0) Leave the BookShelf" << std::endl;
 
         std::cin >> option;
