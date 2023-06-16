@@ -56,6 +56,23 @@ auto SeeBorrowedBooks(BookShelf &bookshelf) -> bool
     return true;
 }
 
+auto SeeAvailableBooks(BookShelf &bookshelf) -> bool
+{
+    auto books = bookshelf.GetAvailableBooks();
+
+    for (const auto &book : books)
+    {
+        std::cout << book << std::endl;
+    }
+
+    if (books.empty())
+    {
+        std::cout << "You have no available books!" << std::endl;
+    }
+
+    return true;
+}
+
 auto RemoveBook(BookShelf &bookshelf) -> bool
 {
     auto books = bookshelf.GetAllBooks();
@@ -82,6 +99,12 @@ auto RemoveBook(BookShelf &bookshelf) -> bool
 auto BorrowBook(BookShelf &bookshelf) -> bool
 {
     auto books = bookshelf.GetAvailableBooks();
+
+    if(books.empty())
+    {
+         std::cout << "You have no available books on your bookshelf." << std::endl;
+    }
+
     for (auto count = 0; count < books.size(); count++)
     {
         std::cout << count << ") " << books[count].GetBook().GetTitle() << " " << books[count].GetBook().GetAuthor() << std::endl;
@@ -115,8 +138,9 @@ int main()
     std::map<uint16_t, bool (*)(BookShelf &)> actions = {{1, AddBook},
                                                          {2, SeeAllBooks},
                                                          {3, SeeBorrowedBooks},
-                                                         {4, RemoveBook},
-                                                         {5, BorrowBook}};
+                                                         {4, SeeAvailableBooks},
+                                                         {5, RemoveBook},
+                                                         {6, BorrowBook}};
 
     std::cout << "Hello!" << std::endl;
     std::cout << "Welcome to the BookShelf!" << std::endl;
@@ -128,13 +152,14 @@ int main()
         std::cout << "\t1) Add new book to the bookshelf" << std::endl;
         std::cout << "\t2) See all books on the bookshelf" << std::endl;
         std::cout << "\t3) See all borrowed books from the bookshelf" << std::endl;
-        std::cout << "\t4) Remove book from the bookshelf" << std::endl;
-        std::cout << "\t5) Borrow the book from the bookshelf" << std::endl;
+        std::cout << "\t4) See all available books on the bookshelf" << std::endl;
+        std::cout << "\t5) Remove book from the bookshelf" << std::endl;
+        std::cout << "\t6) Borrow the book from the bookshelf" << std::endl;
         std::cout << "\t0) Leave the BookShelf" << std::endl;
 
         std::cin >> option;
 
-        if (option > 5)
+        if (option > 6)
         {
             std::cout << "Invalid option! Try again" << std::endl
                       << std::endl;
